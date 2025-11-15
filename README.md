@@ -1,4 +1,4 @@
-# Recallify
+# JanAI
 
 A mobile application that uses AI to analyze images of cleaning issues and create actionable tasks. Built with React Native/Expo on the frontend and Flask on the backend.
 
