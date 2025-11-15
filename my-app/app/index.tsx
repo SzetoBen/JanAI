@@ -10,9 +10,12 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons, MaterialCommunityIcons, Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useTasks } from "./taskStore";
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { tasks } = useTasks();
+  
   const handleUploadPress = () => {
     router.push("/upload");
   };
@@ -95,7 +98,7 @@ export default function HomeScreen() {
             onPress={handleViewTasksPress}
             activeOpacity={0.8}
           >
-            <Text style={styles.secondaryButtonText}>View Tasks (0)</Text>
+            <Text style={styles.secondaryButtonText}>View Tasks ({tasks.length})</Text>
           </TouchableOpacity>
         </View>
 
