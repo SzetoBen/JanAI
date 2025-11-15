@@ -1,2 +1,57 @@
+# Environment Variables
 .env
-/venv
+.env.local
+.env.*.local
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Node/Expo/React Native
+node_modules/
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Native builds
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

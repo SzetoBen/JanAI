@@ -1,0 +1,22 @@
+{
+  "name": "recallify",
+  "version": "1.0.0",
+  "description": "Make songs to help memorize",
+  "private": true,
+  "workspaces": [
+    "my-app"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=my-app",
+    "build": "npm run build --workspace=my-app",
+    "test": "npm run test --workspace=my-app",
+    "backend": "python backend/process_image.py"
+  },
+  "keywords": [
+    "memory",
+    "learning",
+    "music"
+  ],
+  "author": "SzetoBen",
+  "license": "ISC"
+}

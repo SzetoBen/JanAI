@@ -1,13 +1,15 @@
 import base64
 import os
+from pathlib import Path
 from google import genai
 from google.genai import types
 import dotenv
-import json
 
-dotenv.load_dotenv()
+# Load environment from backend/.env.local
+env_path = Path(__file__).parent / ".env.local"
+dotenv.load_dotenv(env_path)
 
-prompt = '''
+prompt = """
 You are an image-analysis AI designed to evaluate cleanliness issues in school facilities.
 Analyze the provided image and extract the following information:
 
@@ -29,7 +31,8 @@ Return the output only in the following strict JSON format:
 }
 
 Do not include any additional text, notes, explanations, or formatting outside the JSON.
-'''
+"""
+
 
 def extract_braces_content(input_string):
     result = []
@@ -47,30 +50,31 @@ def extract_braces_content(input_string):
             temp += char  # Collect characters inside braces
     return " ".join(result)[:-1]
 
+
 def categorize_image(image_path):
     client = genai.Client(
         api_key=os.environ.get("GOOGLE_API_KEY"),
     )
 
     model = "gemini-2.5-flash-lite"
-    
-    with open(image_path, 'rb') as f:
+
+    with open(image_path, "rb") as f:
         image_bytes = f.read()
-    
+
     contents = [
         types.Part.from_bytes(
-                data=image_bytes,
-                mime_type='image/jpeg', # Adjust MIME type as needed
-            ),
-        prompt
+            data=image_bytes,
+            mime_type="image/jpeg",  # Adjust MIME type as needed
+        ),
+        prompt,
     ]
     generate_content_config = types.GenerateContentConfig(
-        thinking_config = types.ThinkingConfig(
+        thinking_config=types.ThinkingConfig(
             thinking_budget=-1,
         ),
         image_config=types.ImageConfig(
             image_size="1K",
-        ),  
+        ),
     )
 
     response = ""
@@ -78,8 +82,8 @@ def categorize_image(image_path):
         model=model,
         contents=contents,
         config=generate_content_config,
-    ): 
+    ):
         if chunk.text:
             response += chunk.text
-    
+
     return extract_braces_content(response)
