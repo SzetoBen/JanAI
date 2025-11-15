@@ -74,4 +74,31 @@ export default StyleSheet.create({
   fontWeight: "500",
  },
 
+  optionsContainer: {
+    flexDirection: "column",
+    gap: 12,
+    marginBottom: 20,
+  },
+
+  optionButton: {
+    backgroundColor: "#A78BFA",
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    gap: 12,
+  },
+
+  optionButtonText: {
+    fontSize: 16,
+    color: "#FFFFFF",
+    fontWeight: "600",
+  },
+
+  cancelButton: {
+    backgroundColor: "#9CA3AF",
+  },
+
 });

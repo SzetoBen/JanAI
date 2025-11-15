@@ -19,20 +19,83 @@ const API_BASE_URL = getApiConfig().BASE_URL;
 export default function UploadScreen() {
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showPhotoOptions, setShowPhotoOptions] = useState(false);
   const router = useRouter();
   const { addTask } = useTasks();
 
-  // pick image
-  const pickImage = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 0.7,
-    });
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
+  // Request camera permission
+  const requestCameraPermission = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert(
+        "Permission Denied",
+        "Camera permission is required to take photos."
+      );
+      return false;
     }
+    return true;
+  };
+
+  // Request media library permission
+  const requestMediaLibraryPermission = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert(
+        "Permission Denied",
+        "Media library permission is required to select photos."
+      );
+      return false;
+    }
+    return true;
+  };
+
+  // Take photo with camera
+  const takePhoto = async () => {
+    const hasPermission = await requestCameraPermission();
+    if (!hasPermission) return;
+
+    try {
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ["images"],
+        allowsEditing: true,
+        quality: 0.7,
+      });
+
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
+        setShowPhotoOptions(false);
+      }
+    } catch (error) {
+      console.error("Camera error:", error);
+      Alert.alert("Error", "Failed to open camera");
+    }
+  };
+
+  // Pick image from camera roll
+  const pickImage = async () => {
+    const hasPermission = await requestMediaLibraryPermission();
+    if (!hasPermission) return;
+
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ["images"],
+        allowsEditing: true,
+        quality: 0.7,
+      });
+
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
+        setShowPhotoOptions(false);
+      }
+    } catch (error) {
+      console.error("Gallery error:", error);
+      Alert.alert("Error", "Failed to open gallery");
+    }
+  };
+
+  // Show photo options modal
+  const handlePhotoButtonPress = () => {
+    setShowPhotoOptions(true);
   };
 
   // Convert image to base64
@@ -120,9 +183,9 @@ export default function UploadScreen() {
       {/* upload box */}
       <TouchableOpacity
         style={styles.uploadBox}
-        onPress={pickImage}
+        onPress={handlePhotoButtonPress}
         activeOpacity={0.8}
-        disabled={loading}
+        disabled={loading || showPhotoOptions}
       >
         {image ? (
           <>
@@ -132,10 +195,42 @@ export default function UploadScreen() {
         ) : (
           <>
             <Ionicons name="camera-outline" size={50} color="#A78BFA" />
-            <Text style={styles.uploadText}>Click to capture or select a photo</Text>
+            <Text style={styles.uploadText}>Click to take or select a photo</Text>
           </>
         )}
       </TouchableOpacity>
+
+      {/* photo options buttons */}
+      {showPhotoOptions && !image && (
+        <View style={styles.optionsContainer}>
+          <TouchableOpacity
+            style={styles.optionButton}
+            onPress={takePhoto}
+            disabled={loading}
+          >
+            <Ionicons name="camera" size={24} color="#FFFFFF" />
+            <Text style={styles.optionButtonText}>Take Photo</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.optionButton}
+            onPress={pickImage}
+            disabled={loading}
+          >
+            <Ionicons name="images" size={24} color="#FFFFFF" />
+            <Text style={styles.optionButtonText}>Choose from Gallery</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.optionButton, styles.cancelButton]}
+            onPress={() => setShowPhotoOptions(false)}
+            disabled={loading}
+          >
+            <Ionicons name="close" size={24} color="#FFFFFF" />
+            <Text style={styles.optionButtonText}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
       {/* analyze button */}
       {image && (
