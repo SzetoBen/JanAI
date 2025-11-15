@@ -29,13 +29,9 @@ export default function HomeScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* top pill */}
-        <View style={styles.pill}>
-          <Text style={styles.pillText}>AI-Powered Cleaning Assistant</Text>
-        </View>
 
         {/* title + subtitle */}
-        <Text style={styles.title}>JANAI</Text>
+        <Text style={styles.title}>JanAI</Text>
         <Text style={styles.subtitle}>
           Transform messy photos into organized cleaning tasks.
         </Text>
@@ -107,11 +103,11 @@ export default function HomeScreen() {
 
       <View style={{ marginTop: 6 }}>
         {[
+          "🌿 Reset your space, reset your mood.",
           "✨ Take photos in good lighting for better AI results.",
           "📚 A clean desk helps your brain focus.",
           "💛 Your space deserves love — even the messy corners.",
-          "🧽 Mess happens. Clean up after yourself!",
-          "🌿 Reset your space, reset your mood."
+          "🧽 Mess happens. Clean up after yourself!"
         ].map((tip, index) => (
           <View key={index} style={styles.verticalTipCard}>
             <Text style={styles.verticalTipText}>{tip}</Text>

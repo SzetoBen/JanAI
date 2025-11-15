@@ -40,29 +40,18 @@ export default function TasksScreen() {
                 </View>
             ) : (
                 tasks.map((task) => (
-                    <View key={task.id} style={styles.taskCard}>
-
-                        {/* Task Image */}
-                        <Image source={{ uri: task.image }} style={styles.taskImage} />
-
-                        {/* Info */}
-                        <View style={styles.taskInfo}>
-                            <Text style={styles.taskTitle}>{task.title}</Text>
-
-                            <Text style={styles.taskSeverity}>
-                                Severity: {task.severity}
-                            </Text>
-
-                            <Text style={styles.taskSummary}>{task.summary}</Text>
-                            <Text style={styles.taskLocation}>
-                                {task.building} — Room {task.roomNumber}
-                            </Text>
-
-                        </View>
-
+                    <TouchableOpacity
+                        key={task.id}
+                        style={styles.taskCard}
+                        onPress={() => router.push(task.id as any)}
+                        activeOpacity={0.7}
+                    >
                         {/* Checkmark Button (Delete Task) */}
                         <TouchableOpacity
-                            onPress={() => removeTask(task.id)}
+                            onPress={(e) => {
+                                e.stopPropagation();
+                                removeTask(task.id);
+                            }}
                             style={styles.checkButton}
                         >
                             <Ionicons
@@ -71,7 +60,21 @@ export default function TasksScreen() {
                                 color="#9CA3AF"   // gray icon when unchecked
                             />
                         </TouchableOpacity>
-                    </View>
+
+                        {/* Task Image */}
+                        <Image source={{ uri: task.image }} style={styles.taskImage} />
+
+                        {/* Info */}
+                        <View style={styles.taskInfo}>
+                            <Text style={styles.taskTitle}>{task.title}</Text>
+                            <Text style={styles.taskSeverity}>
+                                {task.building} — Room {task.roomNumber}
+                            </Text>
+                            <Text style={styles.taskSeverity}>
+                                Severity: {task.severity}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
                 ))
             )}
         </ScrollView>

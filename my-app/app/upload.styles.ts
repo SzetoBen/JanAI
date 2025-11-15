@@ -111,6 +111,7 @@ export default StyleSheet.create({
   borderWidth: 1,
   borderColor: "#E2D8FF",
   fontSize: 16,
+  color: "#242528ff"
   },
 
 });

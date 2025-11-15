@@ -189,6 +189,7 @@ export default function UploadScreen() {
       <TextInput
         style={styles.input}
         placeholder="Enter Building"
+        placeholderTextColor="#4A4A58"
         value={building}
         onChangeText={setBuilding}
       />
@@ -197,9 +198,9 @@ export default function UploadScreen() {
       <TextInput
         style={styles.input}
         placeholder="Enter Room Number"
+        placeholderTextColor="#4A4A58"
         value={roomNumber}
         onChangeText={setRoomNumber}
-        keyboardType="numeric"
       />
       
       {/* upload box */}
