@@ -140,6 +140,35 @@ const styles = StyleSheet.create({
     color: "#55596C",
     lineHeight: 18,
   },
+
+  tipsHeader: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginTop: 28,
+    marginBottom: 8,
+    paddingLeft: 6,
+    color: "#5A4C7B",
+  },
+
+  verticalTipCard: {
+    backgroundColor: "#FFFFFF",
+    padding: 16,
+    borderRadius: 16,
+    marginBottom: 12,
+    shadowColor: "#000",
+    shadowOpacity: 0.06,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
+  },
+
+  verticalTipText: {
+    fontSize: 14,
+    color: "#444",
+    lineHeight: 20,
+    fontWeight: "500",
+  },
+
 });
 
 export default styles;

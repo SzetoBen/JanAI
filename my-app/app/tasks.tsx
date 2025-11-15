@@ -54,6 +54,10 @@ export default function TasksScreen() {
                             </Text>
 
                             <Text style={styles.taskSummary}>{task.summary}</Text>
+                            <Text style={styles.taskLocation}>
+                                {task.building} — Room {task.roomNumber}
+                            </Text>
+
                         </View>
 
                         {/* Checkmark Button (Delete Task) */}

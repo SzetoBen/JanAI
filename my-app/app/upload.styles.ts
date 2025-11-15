@@ -25,6 +25,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#FFFFFF",
     marginBottom: 30,
+    marginTop: 20,
   },
 
   uploadText: {
@@ -76,7 +77,6 @@ export default StyleSheet.create({
 
   optionsContainer: {
     flexDirection: "column",
-    gap: 12,
     marginBottom: 20,
   },
 
@@ -89,6 +89,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     gap: 12,
+    marginTop: 12,
   },
 
   optionButtonText: {
@@ -99,6 +100,17 @@ export default StyleSheet.create({
 
   cancelButton: {
     backgroundColor: "#9CA3AF",
+  },
+
+  input: {
+  width: "100%",
+  backgroundColor: "#FFF",
+  borderRadius: 12,
+  padding: 14,
+  marginTop: 14,
+  borderWidth: 1,
+  borderColor: "#E2D8FF",
+  fontSize: 16,
   },
 
 });

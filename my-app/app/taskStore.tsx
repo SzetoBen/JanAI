@@ -6,6 +6,8 @@ export type Task = {
   severity: number;
   title: string;
   summary: string;
+  building: string;
+  roomNumber: string;
 };
 
 type TaskContextType = {

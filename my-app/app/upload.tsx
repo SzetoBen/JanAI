@@ -13,6 +13,7 @@ import { useRouter } from "expo-router";
 import styles from "./upload.styles";
 import { useTasks } from "./taskStore";
 import { getApiConfig } from "../config/environment";
+import { TextInput } from "react-native";
 
 const API_BASE_URL = getApiConfig().BASE_URL;
 
@@ -20,6 +21,9 @@ export default function UploadScreen() {
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showPhotoOptions, setShowPhotoOptions] = useState(false);
+  const [building, setBuilding] = useState("");
+  const [roomNumber, setRoomNumber] = useState("");
+
   const router = useRouter();
   const { addTask } = useTasks();
 
@@ -148,6 +152,8 @@ export default function UploadScreen() {
         severity: result.severity,
         title: result.title,
         summary: result.summary,
+        building,
+        roomNumber,
       });
 
       router.replace("/tasks");
@@ -179,7 +185,23 @@ export default function UploadScreen() {
 
       {/* page title */}
       <Text style={styles.title}>Upload Mess Photo</Text>
+      {/* Building Input */}
+      <TextInput
+        style={styles.input}
+        placeholder="Enter Building"
+        value={building}
+        onChangeText={setBuilding}
+      />
 
+      {/* Room Number Input */}
+      <TextInput
+        style={styles.input}
+        placeholder="Enter Room Number"
+        value={roomNumber}
+        onChangeText={setRoomNumber}
+        keyboardType="numeric"
+      />
+      
       {/* upload box */}
       <TouchableOpacity
         style={styles.uploadBox}

@@ -60,9 +60,9 @@ export default function HomeScreen() {
                 color="#E09B5A"
               />
             </View>
-            <Text style={styles.cardTitle}>AI Analysis</Text>
+            <Text style={styles.cardTitle}>Analyze Photo</Text>
             <Text style={styles.cardBody}>
-              Get detailed cleaning instructions instantly.
+              Get a detailed summary of the mess that was uploaded.
             </Text>
           </View>
 
@@ -102,16 +102,23 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* example output */}
-        <View style={styles.exampleContainer}>
-          <Text style={styles.exampleLabel}>Example Output:</Text>
-          <View style={styles.exampleBubble}>
-            <Text style={styles.exampleText}>
-              “Liquid spill covering 4 sq ft near floor 2 lounge sofa. Requires
-              mop + disinfectant. Estimated 5 min cleanup.”
-            </Text>
+      {/* Smart Tips - Vertical List */}
+      <Text style={styles.tipsHeader}>Smart Tips for Students</Text>
+
+      <View style={{ marginTop: 6 }}>
+        {[
+          "✨ Take photos in good lighting for better AI results.",
+          "📚 A clean desk helps your brain focus.",
+          "💛 Your space deserves love — even the messy corners.",
+          "🧽 Mess happens. Clean up after yourself!",
+          "🌿 Reset your space, reset your mood."
+        ].map((tip, index) => (
+          <View key={index} style={styles.verticalTipCard}>
+            <Text style={styles.verticalTipText}>{tip}</Text>
           </View>
-        </View>
+      ))}
+      </View>
+
       </ScrollView>
     </LinearGradient>
   );
