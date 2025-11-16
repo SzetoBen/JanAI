@@ -145,9 +145,12 @@ export default function UploadScreen() {
 
       const result = await response.json();
 
+      // Create task ID
+      const taskId = Date.now().toString();
+
       // Add task with API response
       addTask({
-        id: Date.now().toString(),
+        id: taskId,
         image,
         severity: result.severity,
         title: result.title,
@@ -156,7 +159,8 @@ export default function UploadScreen() {
         roomNumber,
       });
 
-      router.replace("/tasks");
+      // Navigate to task detail (not tasks list)
+      router.replace(taskId as any);
     } catch (error) {
       console.error("Error analyzing image:", error);
       Alert.alert(
